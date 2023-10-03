@@ -1,10 +1,12 @@
 'use client'
 
-import { forwardRef, Suspense, useImperativeHandle, useRef } from 'react'
+import { forwardRef, Ref, Suspense, useImperativeHandle, useRef } from 'react'
 import { OrbitControls, PerspectiveCamera, View as ViewImpl } from '@react-three/drei'
-import { Three } from '@/helpers/components/Three'
+import { Three } from '../../helpers/components/Three'
+import React from 'react'
+import { Props } from '@react-three/fiber'
 
-export const Common = ({ color }) => (
+export const Common = ({ color = null }) => (
   <Suspense fallback={null}>
     {color && <color attach='background' args={[color]} />}
     <ambientLight intensity={0.5} />
@@ -14,7 +16,7 @@ export const Common = ({ color }) => (
   </Suspense>
 )
 
-const View = forwardRef(({ children, orbit, ...props }, ref) => {
+const View = forwardRef<Ref<Props>, Props>(({ children, orbit, ...props }, ref) => {
   const localRef = useRef(null)
   useImperativeHandle(ref, () => localRef.current)
 
@@ -24,7 +26,6 @@ const View = forwardRef(({ children, orbit, ...props }, ref) => {
       <Three>
         <ViewImpl track={localRef}>
           {children}
-          {orbit && <OrbitControls />}
         </ViewImpl>
       </Three>
     </>
