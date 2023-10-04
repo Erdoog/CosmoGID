@@ -60,7 +60,7 @@ export default function Page() {
           <View orbit={null} className='relative h-full  sm:h-48 sm:w-full'>
             <Suspense fallback={null}>
               <Uranus />
-              <Common color={'lightpink'} />
+              <Common />
             </Suspense>
           </View>
         </div>

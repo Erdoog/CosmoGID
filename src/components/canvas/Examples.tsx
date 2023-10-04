@@ -58,7 +58,6 @@ export function Uranus() {
   useFrame((state, delta) => (scene.rotation.y += delta))
 
   console.log({ uranus_scene: scene }) // Inspect the scene object
-  scene.children[0].visible = true
 
   return <primitive object={scene} scale={[2, 2, 2]} position={[0, -1.6, 0]} />
 }
