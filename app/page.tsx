@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Dog = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
 const Duck = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
+const Neptune = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Neptune), { ssr: false })
 const View = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -75,6 +76,12 @@ export default function Page() {
             scroll along, resize, etc.
           </p>
         </div>
+        <View orbit={null} className='relative h-full  sm:h-96 sm:w-full'>
+          <Suspense fallback={null}>
+            <Neptune route='/blob' scale={2} position={[0, 0, 0]}/>
+            <Common color={'lightgreen'}/>
+          </Suspense>
+        </View>
       </div>
     </>
   )

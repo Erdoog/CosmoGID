@@ -52,6 +52,14 @@ export const Logo = ({ route = '/blob', ...props }) => {
   )
 }
 
+export function Neptune(props) {
+  const { scene } = useGLTF('/Jupiter.glb');
+
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props}/>
+}
+
 export function Duck(props) {
   const { scene } = useGLTF('/duck.glb')
 
@@ -59,6 +67,7 @@ export function Duck(props) {
 
   return <primitive object={scene} {...props} />
 }
+
 export function Dog(props) {
   const { scene } = useGLTF('/dog.glb')
 
