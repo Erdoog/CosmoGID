@@ -17,7 +17,8 @@ export const Blob = ({ route = '/', ...props }) => {
       onClick={() => router.push(route)}
       onPointerOver={() => hover(true)}
       onPointerOut={() => hover(false)}
-      {...props}>
+      {...props}
+    >
       <sphereGeometry args={[1, 64, 64]} />
       <MeshDistortMaterial roughness={0} color={hovered ? 'hotpink' : '#1fb2f5'} />
     </mesh>
@@ -52,19 +53,30 @@ export const Logo = ({ route = '/blob', ...props }) => {
   )
 }
 
-export const MilkyWay = ({  }) => {
-  
+export function Uranus() {
+  const { scene } = useGLTF('/planets/uranus.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  console.log({ uranus_scene: scene }) // Inspect the scene object
+  scene.children[0].visible = true
+
+  return <primitive object={scene} scale={[2, 2, 2]} position={[0, -1.6, 0]} />
 }
 
 export function Duck(props) {
   const { scene } = useGLTF('/duck.glb')
 
+  console.log({ duck_scene: scene }) // Inspect the scene object
+
   useFrame((state, delta) => (scene.rotation.y += delta))
 
   return <primitive object={scene} {...props} />
 }
+
 export function Dog(props) {
   const { scene } = useGLTF('/dog.glb')
+
+  console.log({ dog_scene: scene }) // Inspect the scene object
 
   return <primitive object={scene} {...props} />
 }

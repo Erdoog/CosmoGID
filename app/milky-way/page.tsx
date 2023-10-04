@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
 const Logo = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
+const Uranus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
+const Duck = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
 const View = dynamic(() => import('../../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -24,7 +26,7 @@ export default function Page() {
   return (
     <View className='flex h-96 w-full flex-col items-center justify-center'>
       <Suspense fallback={null}>
-        <Logo route='/blob' scale={0.6} position={[0, 0, 0]} />
+        <Uranus />
         {/* <Common /> */}
       </Suspense>
     </View>
