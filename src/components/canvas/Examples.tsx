@@ -52,6 +52,10 @@ export const Logo = ({ route = '/blob', ...props }) => {
   )
 }
 
+export const MilkyWay = ({  }) => {
+  
+}
+
 export function Duck(props) {
   const { scene } = useGLTF('/duck.glb')
 
