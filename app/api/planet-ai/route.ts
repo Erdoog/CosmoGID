@@ -2,6 +2,8 @@ import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
 
+import { middlewareParser } from '../../../src/utils/middleware-parser'
+
 type Response = {
   data: string
 }
@@ -11,18 +13,14 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
     return res.status(405).end()
   }
 
-  const chunks = []
-
-  for await (const chunk of req.body) {
-    chunks.push(chunk)
-  }
-
-  const body = Buffer.concat(chunks).toString('utf-8')
-  const json = JSON.parse(body)
-  const question = json.question
+  const { question, planet } = await middlewareParser(req);
 
   const template = `
-        You are the planetary guide tool, embodying the knowledge and data of various celestial bodies, including Earth. 
+        You are the guide tool for ${
+          planet ? planet : 'Milky Way'
+        }, embodying the knowledge and data of various celestial bodies.
+        
+        
         Your mission is to engage and educate space enthusiasts, students, and curious minds about the wonders of our solar system and beyond through intriguing titles and summaries. 
         Your goal is to captivate readers and inspire them to explore the mysteries of the universe.
         
@@ -31,11 +29,11 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
         Input: What is the Earth's approximate circumference at the equator?
         Output: Earth's equatorial circumference is approximately 24,901 miles (40,075 kilometers).
 
-        Input: What percentage of Earth's surface is covered by water?
-        Output: About 71% of Earth's surface is covered by water, primarily in the form of oceans.
+        Input: What is the largest mountain on Mars, and where is it located?
+        Output: The largest mountain on Mars is Olympus Mons, located on the planet's equator. It stands at a height of 22 kilometers (13.6 miles) and is three times taller than Mount Everest on Earth.
 
-        Input: How many continents are there on Earth?
-        Output: Earth has seven continents: Africa, Antarctica, Asia, Europe, North America, Australia (Oceania), and South America.
+        Input: What is the lowest temperature in Neptune?
+        Output: The lowest temperature recorded on Neptune is -353 degrees Fahrenheit (-214 degrees Celsius). This frigid temperature is due to the planet's distance from the sun and its thick atmosphere, which traps heat and creates extreme cold temperatures.
 
         Input: What is the Earth's largest desert, and where is it located?
         Output: The Sahara Desert in Africa is the largest desert on Earth.
@@ -50,13 +48,11 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
   const openAIApiKey = process.env.OPENAI_API_KEY
   const modelName = 'gpt-3.5-turbo-instruct'
 
-  const prompt = template.replace(/{{\s*question\s*}}/g, question)
-
   try {
     const response = await axios.post(
       'https://api.openai.com/v1/engines/' + modelName + '/completions',
       {
-        prompt: prompt,
+        prompt: template,
         temperature: 0.0,
         max_tokens: 2048,
       },

@@ -1,7 +1,7 @@
 'use client'
 
-import axios from 'axios'
 import dynamic from 'next/dynamic'
+import { Form } from '../../src/components/Form'
 import { useState, Suspense } from 'react'
 
 const Logo = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
@@ -25,30 +25,7 @@ const View = dynamic(() => import('../../src/components/canvas/View').then((mod)
 })
 
 export default function Page() {
-  const [question, setQuestion] = useState<string>('')
-  const [answer, setAnswer] = useState<string>('')
-
-  const handleClick = async () => {
-    try {
-      const response = await axios.post(
-        'api/planet-ai',
-        {
-          question: question,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-
-      if (response.data && response.data.data) {
-        setAnswer(response.data.data)
-      }
-    } catch (err) {
-      console.error(`Error fetching answer: ${err.message}`)
-    }
-  }
+  const PLANETS = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
 
   return (
     <>
@@ -69,15 +46,7 @@ export default function Page() {
           </View>
         </div>
 
-        <input
-          type='text'
-          value={question}
-          onChange={(event) => setQuestion(event.target.value)}
-          placeholder='Ask a planet'
-        />
-        <button onClick={handleClick}> Ask </button>
-
-        <h4> {answer} </h4>
+        <Form PLANETS={PLANETS} />
       </div>
 
       <View className='flex h-96 w-full flex-col items-center justify-center'>
