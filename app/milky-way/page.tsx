@@ -1,7 +1,8 @@
 'use client'
 
+import axios from 'axios'
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { useState, Suspense } from 'react'
 
 const Logo = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Uranus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
@@ -24,6 +25,31 @@ const View = dynamic(() => import('../../src/components/canvas/View').then((mod)
 })
 
 export default function Page() {
+  const [question, setQuestion] = useState<string>('')
+  const [answer, setAnswer] = useState<string>('')
+
+  const handleClick = async () => {
+    try {
+      const response = await axios.post(
+        'api/planet-ai',
+        {
+          question: question,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+
+      if (response.data && response.data.data) {
+        setAnswer(response.data.data)
+      }
+    } catch (err) {
+      console.error(`Error fetching answer: ${err.message}`)
+    }
+  }
+
   return (
     <>
       <div className='mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5'>
@@ -42,6 +68,16 @@ export default function Page() {
             </Suspense>
           </View>
         </div>
+
+        <input
+          type='text'
+          value={question}
+          onChange={(event) => setQuestion(event.target.value)}
+          placeholder='Ask a planet'
+        />
+        <button onClick={handleClick}> Ask </button>
+
+        <h4> {answer} </h4>
       </div>
 
       <View className='flex h-96 w-full flex-col items-center justify-center'>
