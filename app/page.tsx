@@ -2,10 +2,12 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
+import Link from 'next/link'
+
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Dog = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
 const Duck = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
-const Neptune = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Neptune), { ssr: false })
+const Uranus = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
 const View = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -26,6 +28,10 @@ const Common = dynamic(() => import('../src/components/canvas/View').then((mod) 
 export default function Page() {
   return (
     <>
+      <Link href='/milky-way' className='m-12'>
+        Choose your way
+      </Link>
+
       <div className='mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5'>
         {/* jumbo */}
         <div className='flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left'>
@@ -53,14 +59,14 @@ export default function Page() {
         <div className='relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40'>
           <View orbit={null} className='relative h-full  sm:h-48 sm:w-full'>
             <Suspense fallback={null}>
-              <Dog scale={2} position={[0, -1.6, 0]} rotation={[0.0, -0.3, 0]} />
-              <Common color={'lightpink'} />
+              <Uranus />
+              <Common />
             </Suspense>
           </View>
         </div>
         {/* second row */}
         <div className='relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40'>
-          <View orbit={null} className='relative h-full animate-bounce sm:h-48 sm:w-full'>
+          <View orbit={null} className='relative h-full sm:h-48 sm:w-full'>
             <Suspense fallback={null}>
               <Duck route='/blob' scale={2} position={[0, -1.6, 0]} />
               <Common color={'lightblue'} />
@@ -78,7 +84,6 @@ export default function Page() {
         </div>
         <View orbit={null} className='relative h-full  sm:h-96 sm:w-full'>
           <Suspense fallback={null}>
-            <Neptune route='/blob' scale={2} position={[0, 0, 0]}/>
             <Common color={'lightgreen'}/>
           </Suspense>
         </View>
