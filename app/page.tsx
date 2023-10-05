@@ -25,7 +25,26 @@ const View = dynamic(() => import('../src/components/canvas/View').then((mod) =>
 })
 const Common = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
-export default function Page() {
+export default function Page()
+{
+  return (
+    <>
+      {/* <div className='relative py-6 sm:w-full sm:h-full md:mb-40'> */}
+        <View orbit={null} className='relative sm:h-full sm:w-full'>
+          <Suspense fallback={null}>
+            <Duck route='/blob' scale={2} position={[0, -1.6, 0]} />
+            <Common color={'#222222'} />
+          </Suspense>
+        </View>
+      {/* </div> */}
+      <Link href='/milky-way' className='m-12'>
+          Choose your way
+      </Link>
+    </>
+  )
+}
+
+export function examplePage() {
   return (
     <>
       <Link href='/milky-way' className='m-12'>
