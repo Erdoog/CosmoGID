@@ -4,10 +4,17 @@ import dynamic from 'next/dynamic'
 import { Form } from '../../src/components/Form'
 import { useState, Suspense } from 'react'
 
-const Logo = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
+const Mercury = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Mercury), { ssr: false })
+const Venus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Venus), { ssr: false })
+// const Earth = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
+const Mars = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Mars), { ssr: false })
+const Jupiter = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Jupiter), { ssr: false })
+const Saturn = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Saturn), { ssr: false })
+const Neptune = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Neptune), { ssr: false })
 const Uranus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
-const Duck = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
+
 const Common = dynamic(() => import('../../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+
 const View = dynamic(() => import('../../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -25,36 +32,40 @@ const View = dynamic(() => import('../../src/components/canvas/View').then((mod)
 })
 
 export default function Page() {
-  const PLANETS = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+  const PLANETS = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+  const [toggle, setToggle] = useState<boolean>(false)
 
-  return (
-    <>
-      <div className='mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5'>
-        {/* jumbo */}
-        <div className='flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left'>
-          <p className='w-full uppercase'>Next + React Three Fiber</p>
-          <h1 className='my-4 text-5xl font-bold leading-tight'>Next 3D Starter</h1>
-          <p className='mb-8 text-2xl leading-normal'>A minimalist starter for React, React-three-fiber and Threejs.</p>
-        </div>
+  const DynamicPlanetComponents = PLANETS.map((planet) => {
+    const PlanetComponent = dynamic(() => import(`../../src/components/canvas/Examples`).then((mod) => mod[planet]), {
+      ssr: false,
+    })
 
-        <div className='w-full text-center md:w-3/5'>
-          <View className='flex h-96 w-full flex-col items-center justify-center'>
-            <Suspense fallback={null}>
-              <Logo route='/blob' scale={0.6} position={[0, 0, 0]} />
-              <Common />
-            </Suspense>
-          </View>
-        </div>
-
-        <Form PLANETS={PLANETS} />
-      </div>
-
-      <View className='flex h-96 w-full flex-col items-center justify-center'>
+    return (
+      <View
+        className='flex h-96 w-full flex-col items-center justify-center'
+        onClick={() => setToggle(!toggle)}
+        key={planet}
+      >
         <Suspense fallback={null}>
-          <Uranus />
+          <PlanetComponent scale={2} position={[0, 0, 0]} />
           <Common />
         </Suspense>
       </View>
+    )
+  })
+
+  return (
+    <>
+      <div className='mx-auto flex min-h-full w-full flex-col flex-wrap items-center md:flex-row lg:w-4/5'>
+        {/* jumbo */}
+        {toggle && (
+          <div className='flex max-w-6xl items-center justify-center'>
+            <Form PLANETS={PLANETS} />
+          </div>
+        )}
+
+        <div className='relative grid w-full grid-cols-3 text-center md:w-3/5'>{DynamicPlanetComponents}</div>
+      </div>
     </>
   )
 }

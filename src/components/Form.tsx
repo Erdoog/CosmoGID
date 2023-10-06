@@ -31,7 +31,7 @@ export const Form = ({ PLANETS }) => {
 
   return (
     <>
-      <div className='flex flex-col gap-5'>
+      <div className='z-20 flex flex-col gap-5'>
         <select
           id='planetSelect'
           value={selectedPlanet}
@@ -39,7 +39,7 @@ export const Form = ({ PLANETS }) => {
           className='rounded border border-gray-400 px-3 py-2 outline-none focus:border-blue-500'
         >
           <option value=''>-- Select a planet --</option>
-          {PLANETS.map((planet) => (
+          {PLANETS.map((planet: string) => (
             <option key={planet} value={planet}>
               {planet}
             </option>

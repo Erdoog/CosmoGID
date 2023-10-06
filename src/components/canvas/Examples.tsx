@@ -53,28 +53,59 @@ export const Logo = ({ route = '/blob', ...props }) => {
   )
 }
 
-export function Uranus() {
-  const { scene } = useGLTF('/planets/Uranus.glb')
-  useFrame((state, delta) => (scene.rotation.y += delta))
-  return <primitive object={scene} scale={[2, 2, 2]} position={[0, -1.6, 0]} />
-}
-
-export function Neptune(props) {
-  const { scene } = useGLTF('/Jupiter.glb');
-
-  useFrame((state, delta) => (scene.rotation.y += delta))
-
-  return <primitive object={scene} {...props}/>
-}
-
-export function Duck(props) {
-  const { scene } = useGLTF('/Moon.glb')
+export function Mercury(props) {
+  const { scene } = useGLTF('/Mercury.glb')
   useFrame((state, delta) => (scene.rotation.y += delta))
 
   return <primitive object={scene} {...props} />
 }
 
-export function Dog(props) {
-  const { scene } = useGLTF('/dog.glb')
+export function Venus(props) {
+  const { scene } = useGLTF('/Venus.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
+export function Moon(props) {
+  const { scene } = useGLTF('/Moon.glb')
+
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
+export function Mars(props) {
+  const { scene } = useGLTF('/Mars.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
+export function Jupiter(props) {
+  const { scene } = useGLTF('/Jupiter.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
+export function Saturn(props) {
+  const { scene } = useGLTF('/Saturn.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
+export function Uranus(props) {
+  const { scene } = useGLTF('/Uranus.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+  return <primitive object={scene} {...props} />
+}
+
+export function Neptune(props) {
+  const { scene } = useGLTF('/Neptune.glb')
+
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
   return <primitive object={scene} {...props} />
 }

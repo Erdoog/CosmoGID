@@ -5,9 +5,8 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
-const Dog = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
-const Duck = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
 const Uranus = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
+const Common = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 const View = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -23,22 +22,20 @@ const View = dynamic(() => import('../src/components/canvas/View').then((mod) =>
     </div>
   ),
 })
-const Common = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
-export default function Page()
-{
+export default function Page() {
   return (
     <>
-      {/* <div className='relative py-6 sm:w-full sm:h-full md:mb-40'> */}
+      <div className='relative py-6 sm:h-full sm:w-full md:mb-40'>
         <View orbit={null} className='relative sm:h-full sm:w-full'>
           <Suspense fallback={null}>
-            <Duck route='/blob' scale={2} position={[0, -1.6, 0]} />
+            <Uranus scale={[2, 2, 2]} position={[0, 0, 0]} />
             <Common color={'#222222'} />
           </Suspense>
         </View>
-      {/* </div> */}
+      </div>
       <Link href='/milky-way' className='m-12'>
-          Choose your way
+        Choose your way
       </Link>
     </>
   )
@@ -87,7 +84,6 @@ export function examplePage() {
         <div className='relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40'>
           <View orbit={null} className='relative h-full sm:h-48 sm:w-full'>
             <Suspense fallback={null}>
-              <Duck route='/blob' scale={2} position={[0, -1.6, 0]} />
               <Common color={'lightblue'} />
             </Suspense>
           </View>
@@ -103,7 +99,7 @@ export function examplePage() {
         </div>
         <View orbit={null} className='relative h-full  sm:h-96 sm:w-full'>
           <Suspense fallback={null}>
-            <Common color={'lightgreen'}/>
+            <Common color={'lightgreen'} />
           </Suspense>
         </View>
       </div>
