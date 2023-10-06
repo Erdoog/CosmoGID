@@ -67,6 +67,13 @@ export function Venus(props) {
   return <primitive object={scene} {...props} />
 }
 
+export function Earth(props) {
+  const { scene } = useGLTF('/Earth.glb')
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
 export function Moon(props) {
   const { scene } = useGLTF('/Moon.glb')
 
@@ -108,4 +115,18 @@ export function Neptune(props) {
   useFrame((state, delta) => (scene.rotation.y += delta))
 
   return <primitive object={scene} {...props} />
+}
+
+export function Space(props) {
+  const { scene } = useGLTF('/dog.glb')
+
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
+export function OrbitRing(props) {
+  const geometry = new THREE.RingGeometry(1, 5, 32)
+  const material = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide })
+  const mesh = new THREE.Mesh(geometry, material)
 }
