@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 
-export const Form = () => {
+export const Form = ({ PLANETS }) => {
   const [question, setQuestion] = useState<string>('')
   const [answer, setAnswer] = useState<string>('')
   const [selectedPlanet, setSelectedPlanet] = useState<string>('')
@@ -32,6 +32,21 @@ export const Form = () => {
   return (
     <>
       <div className='z-20 flex flex-col gap-5'>
+        <select
+          id='planetSelect'
+          value={selectedPlanet}
+          onChange={(event) => setSelectedPlanet(event.target.value)}
+          className='rounded border border-gray-400 px-3 py-2 outline-none focus:border-blue-500'
+        >
+          <option value=''>-- Select a planet --</option>
+          {PLANETS.map((planet: string) => (
+            <option key={planet} value={planet}>
+              {planet}
+            </option>
+          ))}
+        </select>
+        {selectedPlanet && <p>You selected: {selectedPlanet}</p>}
+
         <div className='flex w-full flex-row items-center justify-center gap-6'>
           <input
             type='text'

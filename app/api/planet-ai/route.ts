@@ -16,7 +16,10 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
   const { question, planet } = await middlewareParser(req);
 
   const template = `
-        Act as the ${planet}, you have knowledge and data of your planet. Provide useful information for tourists by presenting yourself. Try to not write more than a 4 sentences, unless user asks you to do it.
+        You are the guide tool for ${
+          planet ? planet : 'Milky Way'
+        }, embodying the knowledge and data of various celestial bodies.
+        
         
         Your mission is to engage and educate space enthusiasts, students, and curious minds about the wonders of our solar system and beyond through intriguing titles and summaries. 
         Your goal is to captivate readers and inspire them to explore the mysteries of the universe.
@@ -51,7 +54,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
       {
         prompt: template,
         temperature: 0.0,
-        max_tokens: 216,
+        max_tokens: 2048,
       },
       {
         headers: {
