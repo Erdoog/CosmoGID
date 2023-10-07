@@ -7,6 +7,7 @@ import Link from 'next/link'
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Uranus = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
 const Common = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
+const MarsLocation = dynamic(() => import('../src/components/LocationData').then((mod) => mod.MarsLocation), {ssr: false})
 const View = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -29,14 +30,16 @@ export default function Page() {
       <div className='relative py-6 sm:h-full sm:w-full md:mb-40'>
         <View orbit className='relative sm:h-full sm:w-full'>
           <Suspense fallback={null}>
-            <Uranus scale={[2, 2, 2]} position={[0, 0, 0]} />
-            <Common color={'#222222'} />
+            {/* <Uranus scale={[2, 2, 2]} position={[0, 0, 0]} /> */}
+
+            <Common/>
           </Suspense>
         </View>
       </div>
       <Link href='/milky-way' className='m-12'>
         Choose your way
       </Link>
+      <MarsLocation/>
     </>
   )
 }

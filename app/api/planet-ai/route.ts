@@ -68,7 +68,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
       return NextResponse.json({ data: response.data.choices[0].text.trim() })
     } else {
       return NextResponse.json({ data: 'Failed to get valid response from OpenAI API.' })
-    }
+    }     
   } catch (error) {
     console.error('Error calling OpenAI API:', error)
     return NextResponse.json({ data: `Failed to process the request. ${error.message}` })

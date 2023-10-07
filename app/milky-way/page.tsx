@@ -38,7 +38,7 @@ const View = dynamic(() => import('../../src/components/canvas/View').then((mod)
 
 export default function Page() {
   // const PLANETS = ['Uranus', 'Jupiter', '', 'Venus', 'Mercury', 'Moon', '', '', 'Earth', 'Mars', 'Saturn', 'Neptune']
-  const PLANETS = ['Uranus', 'Jupiter', 'Venus', 'Mercury', 'Moon', 'Earth', 'Mars', 'Saturn', 'Neptune']
+  const PLANETS = ['Uranus', 'Jupiter', 'Venus', 'Mercury', 'Sun', 'Moon', 'Earth', 'Mars', 'Saturn', 'Neptune']
   const [toggle, setToggle] = useState<boolean>(false)
 
   const initialPlanetPositions = {
@@ -90,7 +90,9 @@ export default function Page() {
           </div>
         )}
 
-        <div className='w-full h-full text-center' style={{backgroundColor: "#AAAAAA"}}>
+        <div className='w-full h-full text-center' 
+        // style={{backgroundColor: "#AAAAAA"}}
+        >
           <View orbit
             className='sm:h-full sm:w-full'>
 

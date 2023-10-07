@@ -8,7 +8,7 @@ export const Form = ({ PLANETS }) => {
 
   const handleClick = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.post(  
         'api/planet-ai',
         {
           question: question,
