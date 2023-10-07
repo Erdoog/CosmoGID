@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <>
       <div className='relative py-6 sm:h-full sm:w-full md:mb-40'>
-        <View orbit={null} className='relative sm:h-full sm:w-full'>
+        <View orbit className='relative sm:h-full sm:w-full'>
           <Suspense fallback={null}>
             <Uranus scale={[2, 2, 2]} position={[0, 0, 0]} />
             <Common color={'#222222'} />

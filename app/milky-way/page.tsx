@@ -15,6 +15,7 @@ const Saturn = dynamic(() => import('../../src/components/canvas/Examples').then
 const Neptune = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Neptune), { ssr: false })
 const Uranus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
 const Moon = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Moon), { ssr: false })
+const Planet = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Planet), { ssr: false })
 const Space = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Space), { ssr: false })
 
 const Common = dynamic(() => import('../../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
@@ -36,7 +37,8 @@ const View = dynamic(() => import('../../src/components/canvas/View').then((mod)
 })
 
 export default function Page() {
-  const PLANETS = ['Uranus', 'Jupiter', '', 'Venus', 'Mercury', 'Moon', '', '', 'Earth', 'Mars', 'Saturn', 'Neptune']
+  // const PLANETS = ['Uranus', 'Jupiter', '', 'Venus', 'Mercury', 'Moon', '', '', 'Earth', 'Mars', 'Saturn', 'Neptune']
+  const PLANETS = ['Uranus', 'Jupiter', 'Venus', 'Mercury', 'Moon', 'Earth', 'Mars', 'Saturn', 'Neptune']
   const [toggle, setToggle] = useState<boolean>(false)
 
   const initialPlanetPositions = {
@@ -74,42 +76,59 @@ export default function Page() {
     return Math.sin(x * (Math.PI / 180)) // This is a simple sine wave for demonstration
   }
 
+  var planetCurrentPosition = -10
+
   return (
     <>
-      <div className='mx-auto flex min-h-full w-full flex-col flex-wrap items-center md:flex-row'>
+      <div className='w-full h-full'>
+      {/* <div className='mx-auto h-64 w-full flex-col flex-wrap items-center md:flex-row'> */}
         {/* jumbo */}
         {toggle && (
-          <div className='flex max-w-6xl items-center justify-center'>
+          // <div className='flex items-center justify-center'>
+          <div className='flex h-40 max-w-6xl items-center justify-center'>
             <Form PLANETS={PLANETS} />
           </div>
         )}
 
-        <div className='relative flex w-full text-center'>
+        <div className='w-full h-full text-center' style={{backgroundColor: "#AAAAAA"}}>
+          <View orbit
+            className='sm:h-full sm:w-full'>
+
           {PLANETS.map((planet) => (
-            <View
-              key={planet}
-              className='flex h-96 w-96 flex-col items-center justify-center'
+            <Suspense key={planet}>
+              <Planet planetName={planet} position={[planetCurrentPosition += 2, 0, 0]}
               onClick={() => setToggle(!toggle)}
-              // style={{
-              //   transform: `translate3d(${planetPositions[planet].x}px, ${planetPositions[planet].y}px, ${planetPositions[planet].z}px)`,
-              // }}
-            >
-              <Suspense fallback={null}>
-                {planet === 'Mercury' ? <Mercury scale={0.3} position={[0, 0, 0]} /> : null}
-                {planet === '' ? <Space scale={0} position={[0, 0, 0]} /> : null}
-                {planet === 'Venus' ? <Venus scale={0.35} position={[0, 0, 0]} /> : null}
-                {planet === 'Earth' ? <Earth scale={0.5} position={[0, 0, 0]} /> : null}
-                {planet === 'Mars' ? <Mars scale={0.4} position={[0, 0, 0]} /> : null}
-                {planet === 'Jupiter' ? <Jupiter scale={1} position={[0, 0, 0]} /> : null}
-                {planet === 'Saturn' ? <Saturn scale={0.85} position={[0, 0, 0]} /> : null}
-                {planet === 'Uranus' ? <Uranus scale={0.7} position={[0, 0, 0]} /> : null}
-                {planet === 'Neptune' ? <Neptune scale={0.7} position={[0, 0, 0]} /> : null}
-                {planet === 'Moon' ? <Moon scale={1.4} position={[0, 0, 0]} /> : null}
-                <Common />
+              />
+              <Common/>
+            </Suspense>
+            // <View
+            // key={planet}
+            // className='flex h-96 w-96 flex-col items-center justify-center'
+            // onClick={() => setToggle(!toggle)}
+            // style={{
+            //     transform: `translate3d(${planetPositions[planet].x}px, ${planetPositions[planet].y}px, ${planetPositions[planet].z}px)`,
+            //   }}
+            // >
+              // <Suspense
+              //   key={planet}
+              //   // onClick={() => setToggle(!toggle)}
+              //   fallback={null}>
+              //   {planet === 'Mercury' ? <Mercury scale={0.3} position={[0, 0, 0]} /> : null}
+              //   {planet === '' ? <Space scale={0} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Venus' ? <Venus scale={0.35} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Earth' ? <Earth scale={0.5} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Mars' ? <Mars scale={0.4} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Jupiter' ? <Jupiter scale={1} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Saturn' ? <Saturn scale={0.85} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Uranus' ? <Uranus scale={0.7} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Neptune' ? <Neptune scale={0.7} position={[0, 0, 0]} /> : null}
+              //   {planet === 'Moon' ? <Moon scale={1.4} position={[0, 0, 0]} /> : null}
+              //   <Common />
                 
-              </Suspense>
-            </View>
+              // </Suspense>
+            // </View>
           ))}
+          </View>
         </div>
       </div>
     </>

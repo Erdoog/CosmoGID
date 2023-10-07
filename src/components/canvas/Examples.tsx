@@ -53,6 +53,54 @@ export const Logo = ({ route = '/blob', ...props }) => {
   )
 }
 
+export function Planet({planetName, ...props}) {
+  var scene : THREE.Group<THREE.Object3DEventMap>
+  if (planetName == 'Mercury')
+  {
+    scene = useGLTF('/Mercury.glb').scene
+  }
+  else if (planetName == 'Uranus')
+  {
+    scene = useGLTF('/Uranus.glb').scene
+  }
+  else if (planetName == 'Moon')
+  {
+    scene = useGLTF('/Moon.glb').scene
+  }
+  else if (planetName == 'Jupiter')
+  {
+    scene = useGLTF('/Jupiter.glb').scene
+  }
+  else if (planetName == 'Mars')
+  {
+    scene = useGLTF('/Mars.glb').scene
+  }
+  else if (planetName == 'Neptune')
+  {
+    scene = useGLTF('/Neptune.glb').scene
+  }
+  else if (planetName == 'Venus')
+  {
+    scene = useGLTF('/Venus.glb').scene
+  }
+  else if (planetName == 'Saturn')
+  {
+    scene = useGLTF('/Saturn.glb').scene
+  }
+  else if (planetName == 'Sun')
+  {
+    scene = useGLTF('/Sun.glb').scene
+  }
+  else
+  {
+    scene = useGLTF('/Earth.glb').scene
+  }
+  
+  useFrame((state, delta) => (scene.rotation.y += delta))
+
+  return <primitive object={scene} {...props} />
+}
+
 export function Mercury(props) {
   const { scene } = useGLTF('/Mercury.glb')
   useFrame((state, delta) => (scene.rotation.y += delta))
