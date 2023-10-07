@@ -34,7 +34,6 @@ const Venus = dynamic(() => import('../../src/components/canvas/Examples').then(
 const Earth = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Earth), { ssr: false })
 const Mars = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Mars), { ssr: false })
 const Jupiter = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Jupiter), { ssr: false })
-// const Sun = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Jupiter), { ssr: false })
 const Saturn = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Saturn), { ssr: false })
 const Neptune = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Neptune), { ssr: false })
 const Uranus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })

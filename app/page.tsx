@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import * as THREE from 'three'
 import dynamic from 'next/dynamic'
 import { Suspense, useMemo, useState } from 'react'
@@ -8,6 +7,7 @@ import Link from 'next/link'
 import { PLANETS, PLANETS_DIST } from './milky-way/page'
 import { Line } from '@react-three/drei'
 import DialogueBar from '../src/components/DialogueBar'
+import Image from 'next/image'
 
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Uranus = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
@@ -33,7 +33,7 @@ const View = dynamic(() => import('../src/components/canvas/View').then((mod) =>
 })
 
 export default function Page() {
-  const [openDialogue, setOpenDialogue] = useState<boolean>(false)
+  const [toggle, setToggle] = useState<boolean>(false)
   const [planet, setPlanet] = useState<string>('')
 
   const points = useMemo(() => new THREE.EllipseCurve(0, 0, 1, 1, 0, 2 * Math.PI, false, 0).getPoints(100), [])
@@ -59,28 +59,8 @@ export default function Page() {
     ]
   })
 
-  // const planetClick = async (planetName) => {
-  //   try {
-  //     const response = await axios.post(
-  //       'api/planet-ai',
-  //       { question, planetName },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       },
-  //     )
-
-  //     if (response.data && response.data.data) {
-  //       setAnswer(response.data.data)
-  //     }
-  //   } catch (err) {
-  //     console.error(`Error fetching answer: ${err.message}`)
-  //   }
-  // }
-
   const handleToggle = (planetName) => {
-    setOpenDialogue(true)
+    setToggle(true)
     setPlanet(planetName)
   }
 
@@ -112,11 +92,17 @@ export default function Page() {
           </Suspense>
         </View>
       </div>
-      <Link href='/milky-way' className='m-12'>
-        Choose your way
-      </Link>
 
-      <DialogueBar planetName={planet} toggle={openDialogue} setToggle={setOpenDialogue} />
+      <DialogueBar planetName={planet} toggle={toggle} setToggle={setToggle} />
+      <Link
+        href={`/${planet}`}
+        className={`${
+          toggle ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        } flex flex-row items-center justify-center gap-4 uppercase absolute top-10 left-10`}
+      >
+        <h4 className='text-xl font-bold text-white'> View the planet </h4>
+        <Image src={'icons/globe-solid.svg'} width={50} height={50} alt={`Visit ${planet}`} />
+      </Link>
       {/* <MarsLocation/> */}
     </>
   )
