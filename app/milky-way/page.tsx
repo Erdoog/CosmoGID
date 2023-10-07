@@ -5,6 +5,30 @@ import dynamic from 'next/dynamic'
 
 import { Form } from '../../src/components/Form'
 
+export const PLANETS = ['Uranus', 'Jupiter', 'Venus', 'Mercury', 'Sun', 'Moon', 'Earth', 'Mars', 'Saturn', 'Neptune']
+export const PLANETS_DIST = {
+  // 'Uranus': 19.2,
+  // 'Neptune': 30.1,
+  // 'Venus': 0.72, 
+  // 'Mercury': 0.39,
+  // 'Moon': 1,
+  // 'Earth': 1,
+  // 'Mars': 1.52,
+  // 'Saturn': 9.54, 
+  // 'Jupiter': 5.2,
+  // 'Sun': 0
+  'Uranus': 13.2,
+  'Neptune': 16.1,
+  'Venus': 4,
+  'Mercury': 2,
+  'Moon': 6,
+  'Earth': 6,
+  'Mars': 7,
+  'Saturn': 11, 
+  'Jupiter': 9,
+  'Sun': 0
+}
+
 const Mercury = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Mercury), { ssr: false })
 const Venus = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Venus), { ssr: false })
 const Earth = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Earth), { ssr: false })
@@ -38,10 +62,9 @@ const View = dynamic(() => import('../../src/components/canvas/View').then((mod)
 
 export default function Page() {
   // const PLANETS = ['Uranus', 'Jupiter', '', 'Venus', 'Mercury', 'Moon', '', '', 'Earth', 'Mars', 'Saturn', 'Neptune']
-  const PLANETS = ['Uranus', 'Jupiter', 'Venus', 'Mercury', 'Sun', 'Moon', 'Earth', 'Mars', 'Saturn', 'Neptune']
   const [toggle, setToggle] = useState<boolean>(false)
 
-  const initialPlanetPositions = {
+  const initialPlanetPositions = {  
     Moon: { x: 0, y: 0, z: 0 },
     Mercury: { x: 0, y: 0, z: 0 },
     Venus: { x: 100, y: 0, z: 0 },
@@ -95,7 +118,6 @@ export default function Page() {
         >
           <View orbit
             className='sm:h-full sm:w-full'>
-
           {PLANETS.map((planet) => (
             <Suspense key={planet}>
               <Planet planetName={planet} position={[planetCurrentPosition += 2, 0, 0]}

@@ -58,22 +58,37 @@ export function Planet({planetName, ...props}) {
   if (planetName == 'Mercury')
   {
     scene = useGLTF('/Mercury.glb').scene
+    scene.scale.x = 0.3
+    scene.scale.y = 0.3
+    scene.scale.z = 0.3
   }
   else if (planetName == 'Uranus')
   {
     scene = useGLTF('/Uranus.glb').scene
+    scene.scale.x = 0.7
+    scene.scale.y = 0.7
+    scene.scale.z = 0.7
   }
   else if (planetName == 'Moon')
   {
     scene = useGLTF('/Moon.glb').scene
+    scene.scale.x = 0.3
+    scene.scale.y = 0.3
+    scene.scale.z = 0.3
   }
   else if (planetName == 'Jupiter')
   {
     scene = useGLTF('/Jupiter.glb').scene
+    scene.scale.x = 1.4
+    scene.scale.y = 1.4
+    scene.scale.z = 1.4
   }
   else if (planetName == 'Mars')
   {
     scene = useGLTF('/Mars.glb').scene
+    scene.scale.x = 1.4
+    scene.scale.y = 1.4
+    scene.scale.z = 1.4
   }
   else if (planetName == 'Neptune')
   {
@@ -90,6 +105,9 @@ export function Planet({planetName, ...props}) {
   else if (planetName == 'Sun')
   {
     scene = useGLTF('/Sun.glb').scene
+    scene.scale.x = 3
+    scene.scale.y = 3
+    scene.scale.z = 3
   }
   else
   {

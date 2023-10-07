@@ -1,13 +1,17 @@
 'use client'
 
+import * as THREE from 'three'
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, useMemo } from 'react'
 import Link from 'next/link'
+import { PLANETS, PLANETS_DIST } from './milky-way/page'
+import { Line } from '@react-three/drei'
 
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Uranus = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
 const Common = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 const MarsLocation = dynamic(() => import('../src/components/LocationData').then((mod) => mod.MarsLocation), {ssr: false})
+const Planet = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Planet), { ssr: false })
 const View = dynamic(() => import('../src/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -25,13 +29,43 @@ const View = dynamic(() => import('../src/components/canvas/View').then((mod) =>
 })
 
 export default function Page() {
+  const points = useMemo(() => new THREE.EllipseCurve(0, 0, 1, 1, 0, 2 * Math.PI, false, 0).getPoints(100), [])
+  var planetAngles = {
+  'Uranus': 0.6,
+  'Neptune': 1.8,
+  'Venus': 2.4, 
+  'Mercury': 3,
+  'Moon': 3.6,
+  'Earth': 4.2,
+  'Mars': 4.8,
+  'Saturn': 5.4, 
+  'Jupiter': 6,
+  'Sun': 0
+  }
+
+  var planetPositions = {}
+  PLANETS.forEach((val, ind) => {
+        planetPositions[val] = [PLANETS_DIST[val] * Math.sin(planetAngles[val]), 0, PLANETS_DIST[val] * Math.cos(planetAngles[val])]
+  })
+
   return (
     <>
-      <div className='relative py-6 sm:h-full sm:w-full md:mb-40'>
+      <div className='relative sm:h-full sm:w-full md:mb-40'>
         <View orbit className='relative sm:h-full sm:w-full'>
           <Suspense fallback={null}>
-            {/* <Uranus scale={[2, 2, 2]} position={[0, 0, 0]} /> */}
+            {PLANETS.map((planetName) => (
+              <>
+                <Planet planetName={planetName}
+                position={planetPositions[planetName]}
+                />
+                <Line worldUnits points={points}
+                scale={PLANETS_DIST[planetName]}
+                rotation={[Math.acos(0), 0, 0]}
+                color='#1fb2f5' lineWidth={0.07} />
+              </>
+            ))}
 
+            {/* <Uranus scale={[2, 2, 2]} position={[0, 0, 0]} /> */}
             <Common/>
           </Suspense>
         </View>
@@ -39,7 +73,7 @@ export default function Page() {
       <Link href='/milky-way' className='m-12'>
         Choose your way
       </Link>
-      <MarsLocation/>
+      {/* <MarsLocation/> */}
     </>
   )
 }
