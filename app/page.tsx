@@ -8,6 +8,7 @@ import { PLANETS, PLANETS_DIST } from './milky-way/page'
 import { Line } from '@react-three/drei'
 import DialogueBar from '../src/components/DialogueBar'
 import Image from 'next/image'
+import { DistanceMeter } from '../src/components/DistanceForm'
 
 const Logo = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Uranus = dynamic(() => import('../src/components/canvas/Examples').then((mod) => mod.Uranus), { ssr: false })
@@ -66,8 +67,8 @@ export default function Page() {
 
   return (
     <>
-      <div className='relative sm:h-full sm:w-full md:mb-40'>
-        <View orbit className='relative sm:h-full sm:w-full'>
+      <div className='relative sm:h-full sm:w-ful l md:mb-40'>
+        <View orbit environment className='relative sm:h-full sm:w-full'>
           <Suspense fallback={null}>
             {PLANETS.map((planetName) => (
               <>
@@ -92,7 +93,7 @@ export default function Page() {
           </Suspense>
         </View>
       </div>
-
+      <DistanceMeter className='z-10' planetName={planet} toggle={toggle}/>
       <DialogueBar planetName={planet} toggle={toggle} setToggle={setToggle} />
       <Link
         href={`/${planet}`}
@@ -103,7 +104,6 @@ export default function Page() {
         <h4 className='text-xl font-bold text-white'> View the planet </h4>
         <Image src={'icons/globe-solid.svg'} width={50} height={50} alt={`Visit ${planet}`} />
       </Link>
-      {/* <MarsLocation/> */}
     </>
   )
 }

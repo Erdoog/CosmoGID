@@ -19,11 +19,11 @@ export const PLANETS_DIST = {
   // 'Sun': 0
   'Uranus': 13.2,
   'Neptune': 16.1,
-  'Venus': 4,
-  'Mercury': 2,
-  'Moon': 6,
-  'Earth': 6,
-  'Mars': 7,
+  'Venus': 6,
+  'Mercury': 4,
+  'Moon': 7,
+  'Earth': 7,
+  'Mars': 8,
   'Saturn': 11, 
   'Jupiter': 9,
   'Sun': 0

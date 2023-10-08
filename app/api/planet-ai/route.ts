@@ -14,8 +14,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
   }
 
   const { question, planet } = await middlewareParser(req);
-  console.log(planet);
-
+//
   const template = `
         Act as the ${planet}, you have knowledge and data of your planet. Provide useful information for tourists by presenting yourself. Try to not write more than a 4 sentences, unless user asks you to do it.
         
@@ -43,10 +42,11 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
         Output: .
         `
 
-  const openAIApiKey = process.env.OPENAI_API_KEY
+  const openAIApiKey = "sk-GybXfHRz6V7" + process.env.OPENAI_API_KEY
+  console.log(process.env.OPENAI_API_KEY)
   const modelName = 'gpt-3.5-turbo-instruct'
 
-  try {
+  try { 
     const response = await axios.post(
       'https://api.openai.com/v1/engines/' + modelName + '/completions',
       {

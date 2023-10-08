@@ -15,7 +15,7 @@ export const Common = ({ color = null }) => (
   </Suspense>
 )
 
-const View = forwardRef<Ref<Props>, Props>(({ children, orbit, arcball, ...props }, ref) => {
+const View = forwardRef<Ref<Props>, Props>(({ children, orbit, arcball, environment, ...props }, ref) => {
   const localRef = useRef(null)
   useImperativeHandle(ref, () => localRef.current)
 
@@ -26,8 +26,8 @@ const View = forwardRef<Ref<Props>, Props>(({ children, orbit, arcball, ...props
         <ViewImpl track={localRef}>
           {children}
           {orbit && <OrbitControls maxZoom={2}/>}
-          <Environment files="/SpaceEnv.hdr" background/>
           {arcball && <ArcballControls/> }
+          {environment && <Environment files="/SpaceEnv.hdr" background/>}
         </ViewImpl>
       </Three>
     </>
