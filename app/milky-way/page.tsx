@@ -97,7 +97,7 @@ export default function Page() {
     // Replace this with a real calculation based on Mars' orbit
     return Math.sin(x * (Math.PI / 180)) // This is a simple sine wave for demonstration
   }
-
+ 
   var planetCurrentPosition = -10
 
   return (
