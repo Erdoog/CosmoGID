@@ -98,7 +98,7 @@ export default function Page() {
         href={`/${planet}`}
         className={`${
           toggle ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        } flex flex-row items-center justify-center gap-4 uppercase absolute top-10 left-10`}
+        } flex flex-row items-center justify-center gap-4 uppercase absolute top-10 left-10 z-10`}
       >
         <h4 className='text-xl font-bold text-white'> View the planet </h4>
         <Image src={'icons/globe-solid.svg'} width={50} height={50} alt={`Visit ${planet}`} />

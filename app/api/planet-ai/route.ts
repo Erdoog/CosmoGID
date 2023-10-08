@@ -14,6 +14,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse<Response>) 
   }
 
   const { question, planet } = await middlewareParser(req);
+  console.log(planet);
 
   const template = `
         Act as the ${planet}, you have knowledge and data of your planet. Provide useful information for tourists by presenting yourself. Try to not write more than a 4 sentences, unless user asks you to do it.

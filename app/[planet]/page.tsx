@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { antionio } from '../layout'
 
 const Planet = dynamic(() => import('../../src/components/canvas/Examples').then((mod) => mod.Planet), { ssr: false })
 const Common = dynamic(() => import('../../src/components/canvas/View').then((mod) => mod.Common), { ssr: false })
@@ -135,6 +136,7 @@ const PLANETS_INFO = {
     surface_geology:
       "The Sun's visible surface, known as the photosphere, is a turbulent and dynamic layer where intense magnetic activity leads to the formation of sunspots, solar flares, and coronal mass ejections. The Sun's surface temperature is around 5,500 degrees Celsius (9,932 degrees Fahrenheit).",
     rotation: '25',
+    revolution: '1',
     radius: '696,340',
     temperature: '5,500',
   },
@@ -154,7 +156,7 @@ export default function Page({ params }) {
         </View>
       </div>
 
-      <section className='w-full min-h-screen flex flex-col items-center justify-between max-w-3xl gap-6 px-10 py-14 bg-gray-900 text-white'>
+      <section className='w-full min-h-screen flex flex-col items-center justify-between max-w-3xl gap-6 px-10 py-14 bg-gray-900 text-white z-10'>
         <ol className='flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base z-10'>
           <li
             className={`flex md:w-full items-center ${
@@ -221,8 +223,8 @@ export default function Page({ params }) {
           </li>
         </ol>
 
-        <div className='flex flex-col items-center justify-center gap-4 mb-10'>
-          <h2 className='text-5xl uppercase font-bold'>{PLANETS_INFO[params.planet].name}</h2>
+        <div className='flex flex-col items-center justify-center gap-4 mb-[400px]'>
+          <h2 className={`text-5xl uppercase font-bold  ${antionio.className}`}>{PLANETS_INFO[params.planet].name}</h2>
           <p className='text-xl text-center font-thin'>
             {active === 1
               ? PLANETS_INFO[params.planet].description_overview
@@ -233,25 +235,29 @@ export default function Page({ params }) {
         </div>
       </section>
 
-      <section className='w-full min-h-screen flex flex-col items-center justify-between max-w-3xl gap-6 px-10 py-14 bg-gray-900 text-white uppercase'>
+      <section
+        className={`w-full h-screen flex flex-col items-center justify-between max-w-3xl gap-6 px-10 py-14 bg-gray-900 text-white uppercase z-10`}
+      >
         <div className='flex flex-col w-1/2 h-1/4 items-center justify-center border-[0.5px] border-white gap-3'>
           <p className={`text-sm tracking-wider`}>Rotation Time</p>
-          <h5 className='text-2xl'>{PLANETS_INFO[params.planet].rotation} days</h5>
+          <h5 className={`text-4xl ${antionio.className}`}>{PLANETS_INFO[params.planet].rotation} days</h5>
         </div>
 
         <div className='flex flex-col w-1/2 h-1/4 items-center justify-center border-[0.5px] border-white gap-3'>
           <p className='text-sm'>Revolution Time</p>
-          <h5 className='text-2xl'>{PLANETS_INFO[params.planet].revolution} days</h5>
+          <h5 className={`text-4xl ${antionio.className}`}>
+            {PLANETS_INFO[params.planet].revolution} {PLANETS_INFO[params.planet].revolution === '1' ? 'day' : 'days'}
+          </h5>
         </div>
 
         <div className='flex flex-col w-1/2 h-1/4 items-center justify-center border-[0.5px] border-white gap-3'>
           <p className='text-sm'>Radius</p>
-          <h5 className='text-2xl'>{PLANETS_INFO[params.planet].radius} km</h5>
+          <h5 className={`text-4xl ${antionio.className}`}>{PLANETS_INFO[params.planet].radius} km</h5>
         </div>
 
         <div className='flex flex-col w-1/2 h-1/4 items-center justify-center border-[0.5px] border-white gap-3'>
           <p className='text-sm'>Average Temperature</p>
-          <h5 className='text-2xl'>{PLANETS_INFO[params.planet].temperature}°c</h5>
+          <h5 className={`text-4xl ${antionio.className}`}>{PLANETS_INFO[params.planet].temperature}°c</h5>
         </div>
       </section>
     </div>
