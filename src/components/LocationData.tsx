@@ -3,7 +3,7 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react';
 
-export function MarsLocation({children, ...props}) {
+export function MarsLocation() {
   const [locationData, setLocationData] = useState<string>('NoDataYet');
   useEffect(() =>  {
   const fetchLocation = async () =>
@@ -42,7 +42,6 @@ export function MarsLocation({children, ...props}) {
     <div>
         MarsLocationData: <br/>
         {locationData}
-        {children}
     </div>
     </>
   )
