@@ -147,7 +147,7 @@ export default function Page({ params }) {
   const [active, setActive] = useState<number>(1)
 
   return (
-    <div className='flex justify-between'>
+    <div className='flex justify-between bg-gray-900'>
       <div className={`absolute sm:h-full sm:w-full md:mb-40 z-10`}>
         <View className='relative sm:h-full sm:w-full' arcball>
           <Suspense fallback={null}>  
